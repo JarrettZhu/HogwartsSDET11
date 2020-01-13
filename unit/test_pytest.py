@@ -1,3 +1,4 @@
+import allure
 import pytest
 
 
@@ -15,6 +16,13 @@ def setup_module():
 
 def setup_function():
     print("setup function")
+
+
+# 报告添加图片
+@pytest.mark.img
+def test_img():
+    assert 123 == 123
+    allure.attach.file('C:/Users/Jarrett-zhu/Desktop/12345.jpg', attachment_type=allure.attachment_type.JPG)
 
 
 class TestClass:
