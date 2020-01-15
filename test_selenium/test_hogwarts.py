@@ -17,18 +17,21 @@ class TestHogwarts:
             self.driver = webdriver.Firefox()
         else:
             options = webdriver.ChromeOptions()
-            # 使用headless模式
-            options.add_argument("--headless")
-            options.add_argument("--disable-gpu")
-            # 无头模式默认分辨率会导致元素不可见，设置分辨率使其显示齐全
-            options.add_argument("--window-size=1280,1696")
+            # # 使用headless模式
+            # options.add_argument("--headless")
+            # options.add_argument("--disable-gpu")
+            # # 无头模式默认分辨率会导致元素不可见，设置分辨率使其显示齐全
+            # options.add_argument("--window-size=1280,1696")
+
+            # 使用已经存在的chrome进程
+            options.debugger_address = '127.0.0.1:9222'
 
             self.driver = webdriver.Chrome(options=options)
 
         self.driver.get("https://testerhome.com/")
         # 隐式等待，解决元素还未完成加载，找不到的问题，对所有的find element做等待
         self.driver.implicitly_wait(5)
-        self.driver.maximize_window()
+        # self.driver.maximize_window()
 
     def wait(self, timeout, method):
         WebDriverWait(self.driver, timeout).until(method)
