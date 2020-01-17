@@ -1,14 +1,22 @@
 #!/usr/bin/env python 
 # -*- coding:utf-8 -*-
+from time import sleep
+
 from selenium import webdriver
+from selenium.webdriver.remote.webdriver import WebDriver
 
 
 class BasePage:
-    def __init__(self, driver=None):
+    # “driver: WebDriver” 指定driver类型为WebDriver
+    def __init__(self, driver: WebDriver = None):
         if driver is None:
-            self.driver = webdriver.Chrome()
-            self.driver.implicitly_wait(3)
+            self._driver = webdriver.Chrome()
+            self._driver.implicitly_wait(3)
             # 允许每个类打开自己的地址
-            self.driver.get(self._base_url)
+            self._driver.get(self._base_url)
         else:
-            self.driver = driver
+            self._driver = driver
+
+    def close(self):
+        sleep(20)
+        self._driver.quit()
