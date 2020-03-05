@@ -1,3 +1,4 @@
 pytest
 allure-pytest
 selenium
+Appium-Python-Client

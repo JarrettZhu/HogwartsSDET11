@@ -19,11 +19,13 @@ class TestXueqiu:
         caps["deviceName"] = "test-avd"
         caps["appPackage"] = "com.xueqiu.android"
         caps["appActivity"] = ".view.WelcomeActivityAlias"
-        # caps["noReset"] = True
+        caps["noReset"] = True
         # caps["dontStopAppOnReset"] = True
         # caps["unicodeKeyboard"] = True
         # caps["resetKeyboard"] = True
         # caps["skipServerInstallation"] = True
+        # caps["chromedriverExecutableDir"] = '/Users/zhujunhua/Downloads/chromedriverdir'
+        caps["chromedriverExecutable"] = '/Users/zhujunhua/Downloads/chromedriverdir/chromedriver_2.20'
 
         self.driver = webdriver.Remote("http://localhost:4723/wd/hub", caps)
         self.driver.implicitly_wait(10)
@@ -74,6 +76,49 @@ class TestXueqiu:
 
     def test_source(self):
         print(self.driver.page_source)
+
+    def test_webview(self):
+        self.driver.find_element(By.XPATH, "//*[@text='交易' and contains(@resource-id, 'tab')]").click()
+        self.driver.find_element(MobileBy.ACCESSIBILITY_ID, "A股开户").click()
+        phone = (MobileBy.XPATH, "//android.widget.EditText")
+        # WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(phone))
+        # sleep(10)
+        # print(self.driver.page_source)
+        # print(self.driver.find_element(*phone).get_attribute("content-desc"))
+        self.driver.find_element(*phone).click()
+        self.driver.find_element(*phone).send_keys('13424102217')
+        # todo
+
+    def test_webview_context(self):
+        self.driver.find_element(By.XPATH, "//*[@text='交易' and contains(@resource-id, 'tab')]").click()
+        for i in range(5):
+            print(self.driver.contexts)
+            sleep(0.5)
+        self.driver.switch_to.context(self.driver.contexts[-1])
+        self.driver.find_element(MobileBy.ACCESSIBILITY_ID, "A股开户").click()
+        phone = (MobileBy.XPATH, "//android.widget.EditText")
+        self.driver.find_element(*phone).click()
+        self.driver.find_element(*phone).send_keys('13424102217')
+
+    def test_xueying(self):
+        self.driver.find_element(By.XPATH, "//*[@text='交易' and contains(@resource-id, 'tab')]").click()
+        # 判断上下文内容是否大于1，大于1则代表webview出现
+        WebDriverWait(self.driver, 30).until(lambda x: len(self.driver.contexts) > 1)
+        # 切换至新出现的上下文内容
+        self.driver.switch_to.context(self.driver.contexts[-1])
+        self.driver.find_element(By.CSS_SELECTOR, '.trade_home_xueying_SJY .trade_home_info_3aI').click()
+        # 打印当前存在的窗口
+        for i in range(5):
+            print(self.driver.window_handles)
+            sleep(1)
+        WebDriverWait(self.driver, 30).until(lambda x: len(self.driver.window_handles) > 3)
+        # 切换至最后出现的窗口
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        phonenum = (By.CSS_SELECTOR, '.open_input-wrapper_13S > input[placeholder*="手机号"]')
+        self.driver.find_element(*phonenum).send_keys('13424102217')
+        self.driver.find_element(By.CSS_SELECTOR, '.open_input-wrapper_13S > input[placeholder*="验证码"]').send_keys(
+            '1234')
+        self.driver.find_element(By.CSS_SELECTOR, '.open_form-submit_1Ms').click()
 
     def teardown(self):
         sleep(5)
