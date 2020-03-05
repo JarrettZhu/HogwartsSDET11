@@ -86,7 +86,7 @@ class TestXueqiu:
         # print(self.driver.page_source)
         # print(self.driver.find_element(*phone).get_attribute("content-desc"))
         self.driver.find_element(*phone).click()
-        self.driver.find_element(*phone).send_keys('13424102217')
+        self.driver.find_element(*phone).send_keys('13424103317')
         # todo
 
     def test_webview_context(self):
@@ -98,7 +98,7 @@ class TestXueqiu:
         self.driver.find_element(MobileBy.ACCESSIBILITY_ID, "A股开户").click()
         phone = (MobileBy.XPATH, "//android.widget.EditText")
         self.driver.find_element(*phone).click()
-        self.driver.find_element(*phone).send_keys('13424102217')
+        self.driver.find_element(*phone).send_keys('13424103317')
 
     def test_xueying(self):
         self.driver.find_element(By.XPATH, "//*[@text='交易' and contains(@resource-id, 'tab')]").click()
@@ -115,7 +115,7 @@ class TestXueqiu:
         # 切换至最后出现的窗口
         self.driver.switch_to.window(self.driver.window_handles[-1])
         phonenum = (By.CSS_SELECTOR, '.open_input-wrapper_13S > input[placeholder*="手机号"]')
-        self.driver.find_element(*phonenum).send_keys('13424102217')
+        self.driver.find_element(*phonenum).send_keys('13424103317')
         self.driver.find_element(By.CSS_SELECTOR, '.open_input-wrapper_13S > input[placeholder*="验证码"]').send_keys(
             '1234')
         self.driver.find_element(By.CSS_SELECTOR, '.open_form-submit_1Ms').click()
