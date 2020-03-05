@@ -1,7 +1,7 @@
 #!/usr/bin/env python 
 # -*- coding:utf-8 -*-
 
-from page.index import Index
+from test_selenium.page.index import Index
 
 
 class TestIndex:

@@ -2,9 +2,9 @@
 # -*- coding:utf-8 -*-
 from selenium.webdriver.common.by import By
 
-from page.base_page import BasePage
-from page.login import Login
-from page.register import Register
+from test_selenium.page.base_page import BasePage
+from test_selenium.page.login import Login
+from test_selenium.page.register import Register
 
 
 class Index(BasePage):

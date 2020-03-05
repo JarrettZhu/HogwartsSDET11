@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 from selenium.webdriver.common.by import By
 
-from page.base_page import BasePage
+from test_selenium.page.base_page import BasePage
 
 
 class Register(BasePage):
