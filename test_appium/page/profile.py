@@ -11,4 +11,6 @@ class Profile(BasePage):
         self.find(By.ID, "button_next").click()
         msg = self.find(By.ID, "md_content").text
         self.find(By.ID, "md_buttonDefaultPositive").click()
+        # 获取Toast提示框中的信息
+        # self.find(By.XPATH, "//*[@class='android.widget.Toast']").text
         return msg
